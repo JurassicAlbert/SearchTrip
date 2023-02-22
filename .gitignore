@@ -1,0 +1,10 @@
+.venv
+./venv
+./venv/*
+.idea
+./idea
+./idea/*
+__pycache__
+
+search_trip/__pycache__/*
+search_trip/__pycache__
