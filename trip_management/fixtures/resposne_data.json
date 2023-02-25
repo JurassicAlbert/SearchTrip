@@ -1,0 +1,12 @@
+[
+    {
+        "model": "trip_management.response",
+        "pk": 1,
+        "fields": {
+            "review": 1,
+            "user": 2,
+            "response_text": "Dziękujemy za pozytywną opinię. Cieszymy się, że nasze muzeum przypadło Ci do gustu!",
+            "date_added": "2022-01-02T12:00:00Z"
+        }
+    }
+]

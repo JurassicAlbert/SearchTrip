@@ -1,0 +1,10 @@
+[
+  {
+    "model": "trip_management.favorite",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "location": 1
+    }
+  }
+]

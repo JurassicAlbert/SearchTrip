@@ -1,0 +1,521 @@
+[
+  {
+    "model": "trip_management.address",
+    "pk": 1,
+    "fields": {
+      "street_name": "Aleja Marszałka Józefa Piłsudskiego",
+      "street_number": "3",
+      "city": "Warszawa",
+      "state_province": "Mazowieckie",
+      "postal_code": "00-073",
+      "latitude": 52.2345,
+      "longitude": 21.0241
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 1,
+    "fields": {
+      "location_name": "Muzeum Fryderyka Chopina",
+      "description": "Muzeum Fryderyka Chopina to muzeum poświęcone życiu i twórczości polskiego kompozytora Fryderyka Chopina, znajdujące się w jego rodzinnej kamienicy w Warszawie.",
+      "photo": "https://muzeum.nifc.pl/uploads/images/muzeum/chopin/kamienica.jpg",
+      "address": 1
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 2,
+    "fields": {
+      "street_name": "Aleje Ujazdowskie",
+      "street_number": "41",
+      "city": "Warszawa",
+      "state_province": "Mazowieckie",
+      "postal_code": "00-540",
+      "latitude": 52.2228,
+      "longitude": 21.0271
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 2,
+    "fields": {
+      "location_name": "Muzeum Sztuki Nowoczesnej w Warszawie",
+      "description": "Muzeum Sztuki Nowoczesnej w Warszawie to muzeum sztuki współczesnej, którego siedzibą jest renowowany modernistyczny budynek Pałacu Kultury i Nauki.",
+      "photo": "https://culture.pl/sites/default/files/styles/1920_auto/public/muzeum-sztuki-nowoczesnej-w-warszawie-msn-photo-adam-bruzda-muzeum-sztuki-nowoczesnej-w-warszawie.jpg",
+      "address": 2
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 3,
+    "fields": {
+      "street_name": "ul. Andersa",
+      "street_number": "5",
+      "city": "Warszawa",
+      "state_province": "Mazowieckie",
+      "postal_code": "00-147",
+      "latitude": 52.2389,
+      "longitude": 21.0166
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 3,
+    "fields": {
+      "location_name": "Muzeum Wojska Polskiego",
+      "description": "Muzeum Wojska Polskiego to muzeum poświęcone historii wojskowości w Polsce i na świecie, zlokalizowane w zabytkowych koszarach w centrum Warszawie.",
+      "photo": "https://mwk.com.pl/wp-content/uploads/2019/06/Muzeum-Wojska-Polskiego-we-Warszawie-1.jpg",
+      "address": 3
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 4,
+    "fields": {
+      "street_name": "ul. Łąkowa",
+      "street_number": "1",
+      "city": "Warszawa",
+      "state_province": "Mazowieckie",
+      "postal_code": "00-600",
+      "latitude": 52.2351,
+      "longitude": 21.0089
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 4,
+    "fields": {
+      "location_name": "Muzeum Narodowe w Warszawie",
+      "description": "Muzeum Narodowe w Warszawie to największe muzeum sztuki w Polsce, którego kolekcja obejmuje dzieła polskie i europejskie od średniowiecza po czasów współczesne.",
+      "photo": "https://www.warsawtour.pl/uploads/images/172456/1000x750_5987e72f-2c1f-4e9d-bb7a-d1c135dcfb7d.JPG",
+      "address": 4
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 5,
+    "fields": {
+      "street_name": "Al. Jerozolimskie",
+      "street_number": "51",
+      "city": "Warszawa",
+      "state_province": "Mazowieckie",
+      "postal_code": "00-697",
+      "latitude": 52.2263,
+      "longitude": 21.0054
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 5,
+    "fields": {
+      "location_name": "Muzeum Etnograficzne w Warszawie",
+      "description": "Muzeum Etnograficzne w Warszawie to muzeum poświęcone kulturze i sztuce ludowej na całym świecie, której zbiory liczą ponad 80 tysięcy obiektów.",
+      "photo": "https://lh3.googleusercontent.com/proxy/7hDf_jxHLJ8XGGWOTGv-M-ElOnjQ0lMF8bWjhYHvLShMCKFFcJKxhRbRZQ0OKZ34bJtGkw-1T3TzrY3y25PnmN-15sTb1zl_-Z2a2hIRtMcj1t-ZlwT-gTgyrC3gjloDRA",
+      "address": 5
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 6,
+    "fields": {
+      "street_name": "ul. Zakroczymska",
+      "street_number": "12",
+      "city": "Warszawa",
+      "state_province": "Mazowieckie",
+      "postal_code": "01-044",
+      "latitude": 52.2787,
+      "longitude": 20.9689
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 6,
+    "fields": {
+      "location_name": "Centrum Nauki Kopernik",
+      "description": "Centrum Nauki Kopernik to interaktywne muzeum nauki, które oferuje różnorodne wystawy, programy edukacyjne i eksperymenty z dziedziny nauki, techniki i matematyki.",
+      "photo": "https://www.ck.lukaszmucha.pl/wp-content/uploads/2019/07/2400x1598_2_CKN_MAS_17062018_001_RR.jpg",
+      "address": 6
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 7,
+    "fields": {
+      "street_name": "ul. Stanisława Dubois",
+      "street_number": "33",
+      "city": "Warszawa",
+      "state_province": "Mazowieckie",
+      "postal_code": "00-184",
+      "latitude": 52.2208,
+      "longitude": 21.0099
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 7,
+    "fields": {
+      "location_name": "Zamek Królewski w Warszawie",
+      "description": "Zamek Królewski w Warszawie to zabytkowy zamek, który był siedzibą królów Polski w XVIII wieku. Obecnie jest muzeum, w którym można podziwiać wiele cennych dzieł sztuki.",
+      "photo": "https://www.warsawtour.pl/uploads/images/172464/1000x750_zamek-krolewski-w-warszawie.jpg",
+      "address": 7
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 8,
+    "fields": {
+      "street_name": "ul. Wybrzeże Kościuszkowskie",
+      "street_number": "31/33",
+      "city": "Warszawa",
+      "state_province": "Mazowieckie",
+      "postal_code": "00-379",
+      "latitude": 52.2382,
+      "longitude": 21.0189
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 8,
+    "fields": {
+      "location_name": "Muzeum Fryderyka Chopina",
+      "description": "Muzeum Fryderyka Chopina to muzeum poświęcone życiu i twórczości polskiego kompozytora Fryderyka Chopina, które znajduje się w Łazienkach Królewskich.",
+      "photo": "https://www.warsawtour.pl/uploads/images/3151/muzeum-fryderyka-chopina-lazienki-krolewskie.jpg",
+      "address": 8
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 9,
+    "fields": {
+      "street_name": "ul. Tumska",
+      "street_number": "6",
+      "city": "Płock",
+      "state_province": "Mazowieckie",
+      "postal_code": "09-400",
+      "latitude": 52.5487,
+      "longitude": 19.7018
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 9,
+    "fields": {
+      "location_name": "Muzeum Mazowieckie w Płocku",
+      "description": "Muzeum Mazowieckie w Płocku to muzeum regionalne, którego zbiory obejmują historię i kulturę regionu Mazowsza. W muzeum można obejrzeć m.in. zbiory etnograficzne, dzieła sztuki i eksponaty związane z historią miasta.",
+      "photo": "https://www.muzeum-plock.pl/sites/default/files/muzeum/2020-02/IMG_1057.JPG",
+      "address": 9
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 10,
+    "fields": {
+      "street_name": "ul. Kościuszki",
+      "street_number": "18",
+      "city": "Siedlce",
+      "state_province": "Mazowieckie",
+      "postal_code": "08-110",
+      "latitude": 52.1676,
+      "longitude": 22.2838
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 10,
+    "fields": {
+      "location_name": "Muzeum Diecezjalne w Siedlcach",
+      "description": "Muzeum Diecezjalne w Siedlcach to muzeum poświęcone dziejom Kościoła katolickiego na ziemi siedleckiej, której zbiory obejmują m.in. zabytki liturgiczne, dzieła sztuki i dokumenty związane z historią Kościoła.",
+      "photo": "https://siedlce.wyborcza.pl/siedlce/7,154890,23559410,plastyka-szkolna-zamienia-siedleckie-muzeum-w-swietlice-szkolna.html?disableRedirects=true",
+      "address": 10
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 11,
+    "fields": {
+      "street_name": "ul. Ignacego Paderewskiego",
+      "street_number": "14",
+      "city": "Zielona Góra",
+      "state_province": "Lubuskie",
+      "postal_code": "65-046",
+      "latitude": 51.9382,
+      "longitude": 15.5104
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 11,
+    "fields": {
+      "location_name": "Muzeum Lubuskie w Zielonej Górze",
+      "description": "Muzeum Lubuskie w Zielonej Górze to muzeum regionalne, którego zbiory obejmują historię i kulturę regionu Lubuskiego. W muzeum można obejrzeć m.in. zbiory etnograficzne, dzieła sztuki i eksponaty związane z historią miasta.",
+      "photo": "https://i.wpimg.pl/O/644x429/d.wpimg.pl/9712922--791871078/muzeum-lubuskie-w-zielonej-gorze.jpg",
+      "address": 11
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 12,
+    "fields": {
+      "street_name": "ul. Kupiecka",
+      "street_number": "2",
+      "city": "Zielona Góra",
+      "state_province": "Lubuskie",
+      "postal_code": "65-001",
+      "latitude": 51.9382,
+      "longitude": 15.5087
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 12,
+    "fields": {
+      "location_name": "Rynek w Zielonej Górze",
+      "description": "Rynek w Zielonej Górze to centralne miejsce miasta, pełne zabytkowych kamienic i budynków o charakterystycznej architekturze. W okolicach rynku znajdują się również liczne kawiarnie, restauracje i sklepy.",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRjztzgfEZJGmdA4sN77G6U4F6fLhVU1KjTQ&usqp=CAU",
+      "address": 12
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 13,
+    "fields": {
+      "street_name": "ul. Nadbrzeżna",
+      "street_number": "2",
+      "city": "Gorzów Wielkopolski",
+      "state_province": "Lubuskie",
+      "postal_code": "66-400",
+      "latitude": 52.7362,
+      "longitude": 15.2386
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 13,
+    "fields": {
+      "location_name": "Muzeum Regionalne w Gorzowie Wielkopolskim",
+      "description": "Muzeum Regionalne w Gorzowie Wielkopolskim to muzeum regionalne, którego zbiory obejmują historię i kulturę regionu Lubuskiego. W muzeum można obejrzeć m.in. zbiory etnograficzne, dzieła sztuki i eksponaty związane z historią miasta.",
+      "photo": "https://mw2.google.com/mw-panoramio/photos/small/46687849.jpg",
+      "address": 13
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 14,
+    "fields": {
+      "street_name": "ul. Złota",
+      "street_number": "2",
+      "city": "Gorzów Wielkopolski",
+      "state_province": "Lubuskie",
+      "postal_code": "66-400",
+      "latitude": 52.7382,
+      "longitude": 15.2402
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 14,
+    "fields": {
+      "location_name": "Ratusz w Gorzowie Wielkopolskim",
+      "description": "Ratusz w Gorzowie Wielkopolskim to zabytkowy budynek z 1896 roku, który mieści się w centrum miasta. W ratuszu odbywają się liczne wydarzenia kulturalne i artystyczne, a także można obejrzeć ciekawe wystawy.",
+      "photo": "https://www.nocowanie.pl/podroze/files/upload/galeria_gorzow_wlkp_2.jpg",
+      "address": 14
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 15,
+    "fields": {
+      "street_name": "ul. Pocztowa",
+      "street_number": "1",
+      "city": "Świebodzin",
+      "state_province": "Lubuskie",
+      "postal_code": "66-200",
+      "latitude": 52.2471,
+      "longitude": 15.5349
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 15,
+    "fields": {
+      "location_name": "Pomnik Chrystusa Króla w Świebodzinie",
+      "description": "Pomnik Chrystusa Króla w Świebodzinie to monumentalna rzeźba postaci Jezusa Chrystusa o wysokości 36 metrów. Pomnik jest jednym z największych tego typu na świecie i stanowi popularne miejsce turystyczne.",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/6/60/Swiebodzin_-_Pomnik_Chrystusa_Krola.jpg",
+      "address": 15
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 16,
+    "fields": {
+      "street_name": "ul. Słowiańska",
+      "street_number": "14",
+      "city": "Zagan",
+      "state_province": "Lubuskie",
+      "postal_code": "68-100",
+      "latitude": 51.6151,
+      "longitude": 15.3108
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 16,
+    "fields": {
+      "location_name": "Zamek Książąt Lubuskich w Żaganiu",
+      "description": "Zamek Książąt Lubuskich w Żaganiu to zabytkowy budynek, który powstał w XIV wieku i odgrywał ważną rolę w historii Polski. W zamku znajduje się muzeum, które prezentuje historię zamku i regionu, a także liczne wystawy sztuki.",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/%C5%BByag%C3%B3w_Castle_03.jpg/800px-%C5%BByag%C3%B3w_Castle_03.jpg",
+      "address": 16
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 17,
+    "fields": {
+      "street_name": "ul. Nowa",
+      "street_number": "11",
+      "city": "Kostrzyn nad Odrą",
+      "state_province": "Lubuskie",
+      "postal_code": "66-470",
+      "latitude": 52.5883,
+      "longitude": 14.6522
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 17,
+    "fields": {
+      "location_name": "Twierdza Kostrzyn",
+      "description": "Twierdza Kostrzyn to zabytkowa forteca zbudowana w latach 1537-1557. Forteca ma nieregularny kształt, który wynikał z kształtu miasta. Wewnątrz twierdzy znajdują się liczne muzea oraz centrum kulturalne.",
+      "photo": "https://mw2.google.com/mw-panoramio/photos/small/39648612.jpg",
+      "address": 17
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 18,
+    "fields": {
+      "street_name": "ul. Nowy Świat",
+      "street_number": "2",
+      "city": "Sława",
+      "state_province": "Lubuskie",
+      "postal_code": "67-410",
+      "latitude": 51.8829,
+      "longitude": 16.1021
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 18,
+    "fields": {
+      "location_name": "Muzeum Regionalne w Sławie",
+      "description": "Muzeum Regionalne w Sławie to muzeum, którego zbiory obejmują historię i kulturę regionu Lubuskiego. W muzeum można obejrzeć m.in. zbiory etnograficzne, dzieła sztuki i eksponaty związane z historią miasta.",
+      "photo": "https://mw2.google.com/mw-panoramio/photos/small/37942523.jpg",
+      "address": 18
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 19,
+    "fields": {
+      "street_name": "ul. Młyńska",
+      "street_number": "3",
+      "city": "Sulechów",
+      "state_province": "Lubuskie",
+      "postal_code": "66-100",
+      "latitude": 52.1309,
+      "longitude": 15.6332
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 19,
+    "fields": {
+      "location_name": "Zamek w Sulechowie",
+      "description": "Zamek w Sulechowie to zabytkowy budynek, który powstał w XIV wieku. W zamku działa muzeum, które prezentuje historię miasta i zamku, a także liczne wystawy sztuki.",
+      "photo": "https://mw2.google.com/mw-panoramio/photos/small/35426429.jpg",
+      "address": 19
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 20,
+    "fields": {
+      "street_name": "ul. Nowa",
+      "street_number": "6",
+      "city": "Słubice",
+      "state_province": "Lubuskie",
+      "postal_code": "69-100",
+      "latitude": 52.3471,
+      "longitude": 14.5712
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 20,
+    "fields": {
+      "location_name": "Most Graniczny",
+      "description": "Most Graniczny to unikalny na skalę światową most łączący polskie miasto Słubice z niemieckim Frankfurtem nad Odrą. Most ma łącznie 1125 metrów długości i składa się z dwóch mostów równoległych dla pieszych i samochodów.",
+      "photo": "https://mw2.google.com/mw-panoramio/photos/small/5326454.jpg",
+      "address": 20
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 21,
+    "fields": {
+      "street_name": "Daniłowicza",
+      "street_number": "10",
+      "city": "Wieliczka",
+      "state_province": "Małopolskie",
+      "postal_code": "32-020",
+      "latitude": 49.9901,
+      "longitude": 20.0574
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 21,
+    "fields": {
+      "location_name": "Kopalnia Soli Wieliczka",
+      "description": "Kopalnia Soli Wieliczka to jedno z największych i najpiękniejszych zabytków techniki w Europie, a także wpisana na Listę Światowego Dziedzictwa UNESCO. Kopalnia działała nieprzerwanie przez ponad 700 lat i wydobyto z niej około 200 milionów ton soli. Dziś w kopalni można zwiedzać liczne komory, sztolnie i korytarze, a także podziwiać wyjątkowe zabytki związane z historią kopalni.",
+      "photo": "https://mw2.google.com/mw-panoramio/photos/small/27787617.jpg",
+      "address": 21
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 23,
+    "fields": {
+      "street_name": "Sobieskiego",
+      "street_number": "4",
+      "city": "Opole",
+      "state_province": "Opolskie",
+      "postal_code": "45-002",
+      "latitude": 50.6698,
+      "longitude": 17.9262
+    }
+  },
+  {
+    "model": "trip_management.location",
+    "pk": 23,
+    "fields": {
+      "location_name": "Muzeum Śląska Opolskiego",
+      "description": "Muzeum Śląska Opolskiego to muzeum zlokalizowane w zamku Piastowskim w Opolu. Muzeum prezentuje historię regionu, a także sztukę i rzemiosło artystyczne. W muzeum znajduje się bogata kolekcja dzieł sztuki, m.in. obrazy, rzeźby, a także zbiory archeologiczne i etnograficzne.",
+      "photo": "https://mw2.google.com/mw-panoramio/photos/small/85341802.jpg",
+      "address": 23
+    }
+  },
+  {
+    "model": "trip_management.address",
+    "pk": 24,
+    "fields": {
+      "street_name": "Krakowska",
+      "street_number": "32",
+      "city": "Kielce",
+      "state_province": "Świętokrzyskie",
+      "postal_code": "25-353",
+      "latitude": 50.8629,
+      "longitude": 20.6283
+    }
+  }
+]

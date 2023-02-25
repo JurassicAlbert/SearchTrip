@@ -1,0 +1,13 @@
+[
+{
+    "model": "trip_management.review",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "location": 1,
+        "review_text": "Bardzo ciekawe muzeum z dużą ilością eksponatów. Polecam każdemu kto interesuje się historią.",
+        "date_added": "2022-01-01T12:00:00Z",
+        "rating": 4
+    }
+}
+]

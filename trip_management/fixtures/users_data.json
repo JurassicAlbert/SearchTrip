@@ -1,0 +1,102 @@
+[
+  {
+    "model": "trip_management.user",
+    "pk": 1,
+    "fields": {
+      "username": "user1",
+      "password": "password1",
+      "email": "user1@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  },
+  {
+    "model": "trip_management.user",
+    "pk": 2,
+    "fields": {
+      "username": "user2",
+      "password": "password2",
+      "email": "user2@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  },
+  {
+    "model": "trip_management.user",
+    "pk": 3,
+    "fields": {
+      "username": "user3",
+      "password": "password3",
+      "email": "user3@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  },
+  {
+    "model": "trip_management.user",
+    "pk": 4,
+    "fields": {
+      "username": "user4",
+      "password": "password4",
+      "email": "user4@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  },
+  {
+    "model": "trip_management.user",
+    "pk": 5,
+    "fields": {
+      "username": "user5",
+      "password": "password5",
+      "email": "user5@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  },
+  {
+    "model": "trip_management.user",
+    "pk": 6,
+    "fields": {
+      "username": "user6",
+      "password": "password6",
+      "email": "user6@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  },
+  {
+    "model": "trip_management.user",
+    "pk": 7,
+    "fields": {
+      "username": "user7",
+      "password": "password7",
+      "email": "user7@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  },
+  {
+    "model": "trip_management.user",
+    "pk": 8,
+    "fields": {
+      "username": "user8",
+      "password": "password8",
+      "email": "user8@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  },
+  {
+    "model": "trip_management.user",
+    "pk": 9,
+    "fields": {
+      "username": "user9",
+      "password": "password9",
+      "email": "user9@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  },
+  {
+    "model": "trip_management.user",
+    "pk": 10,
+    "fields": {
+      "username": "user10",
+      "password": "password10",
+      "email": "user10@example.com",
+      "registration_date": "2022-02-22T00:00:00Z"
+    }
+  }
+]

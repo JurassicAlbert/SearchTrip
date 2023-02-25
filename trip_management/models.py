@@ -17,6 +17,28 @@ class User(models.Model):
     registration_date = models.DateTimeField()
 
 
+class Address(models.Model):
+    """
+    Model representing an address.
+
+    Fields:
+        street_name (CharField): The name of the street.
+        street_number (CharField): The number of the building on the street.
+        city (CharField): The name of the city.
+        state_province (CharField): The name of the state or province.
+        postal_code (CharField): The postal code of the address.
+        latitude (FloatField): The latitude of the location.
+        longitude (FloatField): The longitude of the location.
+    """
+    street_name = models.CharField(max_length=100)
+    street_number = models.CharField(max_length=10)
+    city = models.CharField(max_length=100)
+    state_province = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=20)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+
+
 class Location(models.Model):
     """
     Model representing a location.
@@ -24,17 +46,13 @@ class Location(models.Model):
     Fields:
         location_name (CharField): The name of the location.
         description (TextField): A description of the location.
-        address (CharField): The address of the location.
-        latitude (FloatField): The latitude of the location.
-        longitude (FloatField): The longitude of the location.
         photo (CharField): The URL of a photo of the location.
+        address (ForeignKey): The address of the location.
     """
     location_name = models.CharField(max_length=100)
     description = models.TextField()
-    address = models.CharField(max_length=100)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
     photo = models.CharField(max_length=100)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE)
 
 
 class Review(models.Model):
