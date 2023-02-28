@@ -1,9 +1,10 @@
-from datetime import timezone, datetime
+from ..models.user import User
 from django.db.models import Avg
-from django.shortcuts import render
 from django.http import JsonResponse
+from ..models.favorite import Favorite
+from ..models.location import Location
+from .user_views import get_logged_in_user
 from django.views.decorators.csrf import csrf_exempt
-from ..models import User, Address, Location, Review, Response, Favorite
 
 
 def favorites(request, user_id):

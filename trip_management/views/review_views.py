@@ -1,9 +1,9 @@
-from datetime import timezone, datetime
-from django.db.models import Avg
-from django.shortcuts import render
+from datetime import datetime
+from ..models.user import User
+from ..models.review import Review
 from django.http import JsonResponse
+from ..models.location import Location
 from django.views.decorators.csrf import csrf_exempt
-from ..models import User, Address, Location, Review, Response, Favorite
 
 
 # View for adding a review for a location

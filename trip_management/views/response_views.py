@@ -1,10 +1,11 @@
 import pytz
-from datetime import timezone, datetime
-from django.db.models import Avg
-from django.shortcuts import render
+from datetime import datetime
+from ..models.user import User
+from ..models.review import Review
 from django.http import JsonResponse
+from ..models.response import Response
+from .user_views import get_logged_in_user
 from django.views.decorators.csrf import csrf_exempt
-from ..models import User, Address, Location, Review, Response, Favorite
 
 
 def add_response(request):

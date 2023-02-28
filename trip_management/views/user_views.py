@@ -1,9 +1,6 @@
-from datetime import timezone, datetime
-from django.db.models import Avg
-from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from ..models import User, Address, Location, Review, Response, Favorite
+from ..models.user import User
 
 
 @csrf_exempt
