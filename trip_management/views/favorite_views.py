@@ -1,12 +1,11 @@
-from ..models.user import User
-from django.db.models import Avg
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
 from ..models.favorite import Favorite
-from ..models.location import Location
 from .user_views import get_logged_in_user
-from django.views.decorators.csrf import csrf_exempt
+from .favorite_serializer import FavoriteSerializer
 
 
+@api_view(['GET'])
 def favorites(request, user_id):
     """
     Retrieves a list of favorite locations for a specified user and returns them in a JSON response.
@@ -24,29 +23,12 @@ def favorites(request, user_id):
         return JsonResponse({'success': False, 'error': 'User does not exist'})
 
     favorites = Favorite.objects.filter(user=user)
-    favorite_list = []
-    for favorite in favorites:
-        favorite_list.append({
-            'id': favorite.location.id,
-            'location_name': favorite.location.location_name,
-            'description': favorite.location.description,
-            'photo': favorite.location.photo,
-            'address': {
-                'street_name': favorite.location.address.street_name,
-                'street_number': favorite.location.address.street_number,
-                'city': favorite.location.address.city,
-                'state_province': favorite.location.address.state_province,
-                'postal_code': favorite.location.address.postal_code,
-                'latitude': favorite.location.address.latitude,
-                'longitude': favorite.location.address.longitude
-            },
-            'rating': favorite.location.reviews.aggregate(Avg('rating'))['rating__avg']
-        })
+    serializer = FavoriteSerializer(favorites, many=True)
 
-    return JsonResponse({'success': True, 'favorites': favorite_list})
+    return JsonResponse({'success': True, 'favorites': serializer.data})
 
 
-@csrf_exempt
+@api_view(['DELETE'])
 def remove_favorite(request, favorite_id):
     """
     Handle DELETE request to remove a favorite location for a user.
@@ -79,7 +61,7 @@ def remove_favorite(request, favorite_id):
     return response
 
 
-@csrf_exempt
+@api_view(['POST'])
 def add_favorite(request):
     """
     Handle POST request to add a favorite location for a user.
@@ -91,15 +73,13 @@ def add_favorite(request):
         return response
 
     if request.method == 'POST':
-        location_id = request.POST.get('location_id')
-        location = Location.objects.get(id=location_id)
-
-        favorite = Favorite(user=user, location=location)
-        favorite.save()
+        serializer = FavoriteSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=user)
 
         response_data = {
             'success': True,
-            'favorite_id': favorite.id
+            'favorite_id': serializer.data['id']
         }
         response = JsonResponse(response_data)
         response.status_code = 201

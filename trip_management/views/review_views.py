@@ -1,48 +1,48 @@
 from datetime import datetime
-from ..models.user import User
-from ..models.review import Review
 from django.http import JsonResponse
-from ..models.location import Location
 from django.views.decorators.csrf import csrf_exempt
+from ..models.user import User
+from ..models.location import Location
+from ..models.review import Review
+from ..serializers.review_serializer import ReviewSerializer
 
 
-# View for adding a review for a location
 @csrf_exempt
 def add_review(request):
     """
     Handle POST request with new review data.
     """
     if request.method == 'POST':
-        # Get review data from request
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        location_id = request.POST.get('location_id')
-        review_text = request.POST.get('review_text')
-        rating = request.POST.get('rating')
+        # Deserialize request data
+        serializer = ReviewSerializer(data=request.POST)
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
 
-        # Authenticate user
-        user = User.objects.get(username=username, password=password)
-        if user is None:
-            response = JsonResponse({'success': False, 'error': 'User does not exist'})
-            response.status_code = 401
-            return response
+            # Authenticate user
+            user = User.objects.get(username=validated_data['username'], password=validated_data['password'])
+            if user is None:
+                response = JsonResponse({'success': False, 'error': 'User does not exist'})
+                response.status_code = 401
+                return response
 
-        # Get location and create new review
-        location = Location.objects.get(id=location_id)
-        review = Review(user=user, location=location, review_text=review_text, rating=rating, date_added=datetime.now())
-        review.save()
+            # Get location and create new review
+            location = Location.objects.get(id=validated_data['location_id'])
+            review = Review(user=user, location=location, review_text=validated_data['review_text'],
+                            rating=validated_data['rating'], date_added=datetime.now())
+            review.save()
 
-        # Create response
-        response_data = {
-            'success': True,
-            'review_id': review.id
-        }
-        response = JsonResponse(response_data)
-        response.status_code = 201
+            # Create response
+            response_data = {
+                'success': True,
+                'review_id': review.id
+            }
+            response = JsonResponse(response_data)
+            response.status_code = 201
+        else:
+            response_data = {'success': False, 'errors': serializer.errors}
+            response = JsonResponse(response_data)
+            response.status_code = 400
         return response
-
-
-from django.core import serializers
 
 
 # View for getting a single review
@@ -52,22 +52,8 @@ def review(request, review_id):
     """
     try:
         review = Review.objects.get(id=review_id)
-        review_data = {
-            'id': review.id,
-            'user': {
-                'id': review.user.id,
-                'username': review.user.username,
-                'email': review.user.email
-            },
-            'location': {
-                'id': review.location.id,
-                'name': review.location.location_name
-            },
-            'review_text': review.review_text,
-            'date_added': review.date_added,
-            'rating': review.rating
-        }
-        response_data = {'review': review_data}
+        serializer = ReviewSerializer(review)
+        response_data = {'review': serializer.data}
         response_status = 200
     except Review.DoesNotExist:
         response_data = {'error': 'Review not found'}
@@ -81,23 +67,6 @@ def reviews(request):
     Get a list of all reviews from the database and create a JSON response.
     """
     reviews = Review.objects.all()
-    review_list = []
-    for review in reviews:
-        review_data = {
-            'id': review.id,
-            'user': {
-                'id': review.user.id,
-                'username': review.user.username,
-                'email': review.user.email
-            },
-            'location': {
-                'id': review.location.id,
-                'name': review.location.location_name
-            },
-            'review_text': review.review_text,
-            'date_added': review.date_added,
-            'rating': review.rating
-        }
-        review_list.append(review_data)
-    response_data = {'reviews': review_list}
+    serializer = ReviewSerializer(reviews, many=True)
+    response_data = {'reviews': serializer.data}
     return JsonResponse(response_data)
