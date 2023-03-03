@@ -1,39 +1,38 @@
 from django.http import JsonResponse
 from ..models.location import Location
 from .user_views import get_logged_in_user
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
+from ..serializers.address_serializer import AddressSerializer
 from ..serializers.location_serializer import LocationSerializer
 
 
-# View for getting list of places to visit
-def places(request):
+@api_view(['GET'])
+def location_list(request):
     """
     Get list of places from database and create response with data.
     """
     locations = Location.objects.all()
     serializer = LocationSerializer(locations, many=True)
-    response = JsonResponse({'places': serializer.data})
-    response.status_code = 200
-    return response
+    return Response({'places': serializer.data})
 
 
-# View for displaying details of a single location
-def place(request, location_id):
+@api_view(['GET'])
+def location_detail(request, location_id):
     """
     Find location with given identifier and create response with data.
     """
     try:
         location = Location.objects.get(id=location_id)
     except Location.DoesNotExist:
-        return JsonResponse({'error': 'Location does not exist'}, status=404)
+        return Response({'error': 'Location does not exist'}, status=404)
     serializer = LocationSerializer(location)
-    response = JsonResponse({'place': serializer.data})
-    response.status_code = 200
-    return response
+    return Response({'place': serializer.data})
 
 
-@csrf_exempt
-def update_place(request):
+@api_view(['POST'])
+def location_update(request):
     """
     Expects the following POST parameters:
         location_id (int): The ID of the location to update.
@@ -75,3 +74,41 @@ def update_place(request):
         return JsonResponse({'success': True})
     else:
         return JsonResponse(serializer.errors, status=400)
+
+
+@api_view(['POST'])
+def location_create(request):
+    """
+    Expects the following POST parameters:
+    location_name (str): The name of the location.
+    description (str): A description of the location.
+    photo (str): The URL of a photo of the location.
+    address (dict): A dictionary containing the address information, with keys:
+    street_name (str): The name of the street the location is on.
+    street_number (str): The number of the building on the street.
+    city (str): The name of the city the location is in.
+    state_province (str): The name of the state or province the location is in.
+    postal_code (str): The postal code of the location.
+    latitude (float): The latitude of the location.
+    longitude (float): The longitude of the location.
+    Returns:
+    A JSON response indicating whether the location was successfully created.
+    """
+    # Get the logged-in user
+    user = get_logged_in_user(request)
+    if not user:
+        return Response({'success': False, 'error': 'User not logged in.'}, status=401)
+
+    # Create the new location
+    serializer = LocationSerializer(data=request.data)
+    if serializer.is_valid():
+        address_data = request.data.get('address')
+        address_serializer = AddressSerializer(data=address_data)
+        if address_serializer.is_valid():
+            address = address_serializer.save()
+            serializer.save(added_by=user, address=address)
+            return Response({'success': True})
+        else:
+            return Response({'success': False, 'error': address_serializer.errors}, status=400)
+    else:
+        return Response({'success': False, 'error': serializer.errors}, status=400)

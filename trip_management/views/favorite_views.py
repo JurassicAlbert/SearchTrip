@@ -1,86 +1,99 @@
-from django.http import JsonResponse
-from rest_framework.decorators import api_view
+from rest_framework import status
 from ..models.favorite import Favorite
+from ..models.location import Location
 from .user_views import get_logged_in_user
-from .favorite_serializer import FavoriteSerializer
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
+from ..serializers.favorite_serializer import FavoriteSerializer
 
 
 @api_view(['GET'])
-def favorites(request, user_id):
+def favorite_detail(request, favorite_id):
     """
-    Retrieves a list of favorite locations for a specified user and returns them in a JSON response.
-
-    Args:
-        request: The HTTP request object.
-        user_id: The ID of the user whose favorites are to be retrieved.
-
-    Returns:
-        A JSON response with a list of favorite locations and a success status, or an error status if the user is not found.
+    Get details of a single favorite.
     """
-    try:
-        user = User.objects.get(pk=user_id)
-    except User.DoesNotExist:
-        return JsonResponse({'success': False, 'error': 'User does not exist'})
-
-    favorites = Favorite.objects.filter(user=user)
-    serializer = FavoriteSerializer(favorites, many=True)
-
-    return JsonResponse({'success': True, 'favorites': serializer.data})
-
-
-@api_view(['DELETE'])
-def remove_favorite(request, favorite_id):
-    """
-    Handle DELETE request to remove a favorite location for a user.
-    """
-    user = get_logged_in_user(request)
-    if user is None:
-        response = JsonResponse({'error': 'User is not logged in'})
-        response.status_code = 401
-        return response
-
     try:
         favorite = Favorite.objects.get(id=favorite_id)
     except Favorite.DoesNotExist:
-        response = JsonResponse({'error': 'Favorite does not exist'})
-        response.status_code = 404
-        return response
+        return Response({'error': 'Favorite does not exist'}, status=404)
 
-    if favorite.user != user:
-        response = JsonResponse({'error': 'User is not authorized to delete this favorite'})
-        response.status_code = 403
-        return response
+    serializer = FavoriteSerializer(favorite)
+    return Response(serializer.data)
 
-    favorite.delete()
 
-    response_data = {
-        'success': True
-    }
-    response = JsonResponse(response_data)
-    response.status_code = 200
-    return response
+@api_view(['GET'])
+def favorite_list(request):
+    """
+    Get list of user's favorite locations.
+    """
+    user = get_logged_in_user(request)
+    if not user:
+        return Response({'error': 'User not logged in.'}, status=401)
+
+    favorites = Favorite.objects.filter(user=user)
+    serializer = FavoriteSerializer(favorites, many=True)
+    return Response({'favorites': serializer.data})
 
 
 @api_view(['POST'])
-def add_favorite(request):
+def favorite_toggle(request):
     """
-    Handle POST request to add a favorite location for a user.
+    Expects the following POST parameters:
+    location_id (int): The ID of the location to favorite/unfavorite.
+    Returns:
+    A JSON response indicating whether the location was successfully favorited/unfavorited.
     """
     user = get_logged_in_user(request)
-    if user is None:
-        response = JsonResponse({'error': 'User is not logged in'})
-        response.status_code = 401
-        return response
+    if not user:
+        return Response({'error': 'User not logged in.'}, status=401)
 
-    if request.method == 'POST':
-        serializer = FavoriteSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(user=user)
+    location_id = request.POST.get('location_id')
+    try:
+        location = Location.objects.get(id=location_id)
+    except Location.DoesNotExist:
+        return Response({'error': 'Location does not exist.'}, status=404)
 
-        response_data = {
-            'success': True,
-            'favorite_id': serializer.data['id']
-        }
-        response = JsonResponse(response_data)
-        response.status_code = 201
-        return response
+    try:
+        favorite = Favorite.objects.get(user=user, location=location)
+        favorite.delete()
+        return Response({'success': True, 'message': 'Location unfavorited successfully.'})
+    except Favorite.DoesNotExist:
+        favorite = Favorite(user=user, location=location)
+        favorite.save()
+        return Response({'success': True, 'message': 'Location favorited successfully.'})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def favorite_create(request):
+    """
+    Create a new favorite for the logged-in user.
+    Expects the following POST parameters:
+    location_id (int): The ID of the location to favorite.
+    Returns:
+    A JSON response indicating whether the favorite was successfully created.
+    """
+    serializer = FavoriteSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response({'success': True})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def favorite_delete(request, favorite_id):
+    """
+    Delete a favorite for the logged-in user.
+    Expects the ID of the favorite to delete as a URL parameter.
+    Returns:
+    A JSON response indicating whether the favorite was successfully deleted.
+    """
+    try:
+        favorite = Favorite.objects.get(id=favorite_id, user=request.user)
+    except Favorite.DoesNotExist:
+        return Response({'success': False, 'error': 'Favorite does not exist.'}, status=status.HTTP_404_NOT_FOUND)
+        favorite.delete()
+    return Response({'success': True})

@@ -1,10 +1,10 @@
-from django.contrib.auth.hashers import make_password
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
 from ..models.user import User
+from rest_framework import status
+from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.hashers import make_password
 from ..serializers.user_serializer import UserSerializer
 
 
@@ -84,7 +84,8 @@ def login(request):
         # Find user in database by username and password
         user = User.objects.get(username=username)
         serializer = UserSerializer(user)
-        user_password = make_password(password, salt=serializer.data['password'].split('$', 2)[1]) == serializer.data['password']
+        user_password = make_password(password, salt=serializer.data['password'].split('$', 2)[1]) == serializer.data[
+            'password']
         # Verify password
         if serializer and serializer.data and user_password:
             # Create session for the user and add user ID to session
