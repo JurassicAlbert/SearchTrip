@@ -1,3 +1,4 @@
+from datetime import datetime
 from ..models.user import User
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
@@ -12,16 +13,18 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'registration_date', 'password']
+        fields = ['id', 'username', 'email', 'password']
         read_only_fields = ['id', 'registration_date']
 
     def create(self, validated_data):
         """
-        Create a new User instance with a hashed password.
+        Create a new User instance with a hashed password and registration date.
         """
         password = validated_data.pop('password')
         hashed_password = make_password(password)
-        return User.objects.create(password=hashed_password, **validated_data)
+        validated_data['password'] = hashed_password
+        validated_data['registration_date'] = datetime.now()
+        return User.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         """
