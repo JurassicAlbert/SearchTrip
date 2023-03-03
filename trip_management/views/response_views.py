@@ -5,14 +5,16 @@ from ..models.review import Review
 from django.http import JsonResponse
 from ..models.response import Response
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
 from ..serializers.response_serializer import ResponseSerializer
+from rest_framework.decorators import api_view, permission_classes
 
 
 @csrf_exempt
 @api_view(['POST'])
-def add_response(request):
+@permission_classes([IsAuthenticated])
+def response_create(request):
     """
     Handle POST request with new response data.
     """
@@ -74,6 +76,7 @@ def response_list(request):
 
 @csrf_exempt
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def response_update(request, response_id):
     """
     Update a specific response.
@@ -93,6 +96,7 @@ def response_update(request, response_id):
 
 @csrf_exempt
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def response_delete(request, response_id):
     """
     Delete a specific response.

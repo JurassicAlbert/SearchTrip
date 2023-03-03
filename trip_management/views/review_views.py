@@ -5,11 +5,13 @@ from ..models.review import Review
 from django.http import JsonResponse
 from ..models.location import Location
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from ..serializers.review_serializer import ReviewSerializer
+from rest_framework.decorators import api_view, permission_classes
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def review_create(request):
     """
     Handle POST request with new review data.
@@ -73,6 +75,7 @@ def review_list(request):
 
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def review_update(request, review_id):
     """
     Update a specific review.
@@ -90,6 +93,7 @@ def review_update(request, review_id):
 
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def review_delete(request, review_id):
     """
     Delete a specific review.

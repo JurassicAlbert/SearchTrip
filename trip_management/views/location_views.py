@@ -2,10 +2,11 @@ from django.http import JsonResponse
 from ..models.location import Location
 from .user_views import get_logged_in_user
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
 from ..serializers.address_serializer import AddressSerializer
 from ..serializers.location_serializer import LocationSerializer
+from rest_framework.decorators import api_view, permission_classes
 
 
 @api_view(['GET'])
@@ -32,6 +33,7 @@ def location_detail(request, location_id):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def location_update(request):
     """
     Expects the following POST parameters:
@@ -77,6 +79,7 @@ def location_update(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def location_create(request):
     """
     Expects the following POST parameters:
@@ -112,3 +115,18 @@ def location_create(request):
             return Response({'success': False, 'error': address_serializer.errors}, status=400)
     else:
         return Response({'success': False, 'error': serializer.errors}, status=400)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def location_delete(request, location_id):
+    """
+    Delete the location with the given ID.
+    """
+    try:
+        location = Location.objects.get(id=location_id)
+    except Location.DoesNotExist:
+        return Response({'success': False, 'error': 'Location does not exist.'}, status=404)
+
+    location.delete()
+    return Response({'success': True})

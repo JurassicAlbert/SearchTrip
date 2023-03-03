@@ -2,10 +2,13 @@ from ..models.user import User
 from rest_framework import status
 from django.http import JsonResponse
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import make_password
+from rest_framework.permissions import IsAuthenticated
+from ..requests.RequestUserData import RequestUserData
+from rest_framework_simplejwt.tokens import RefreshToken
 from ..serializers.user_serializer import UserSerializer
+from rest_framework.decorators import api_view, permission_classes
 
 
 @csrf_exempt
@@ -22,12 +25,12 @@ def user_list(request):
 
 @csrf_exempt
 @api_view(['GET'])
-def user_detail(request, pk):
+def user_detail(request, user_id):
     """
     Get details of a specific user.
     """
     try:
-        user = User.objects.get(pk=pk)
+        user = User.objects.get(pk=user_id)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -38,12 +41,13 @@ def user_detail(request, pk):
 
 @csrf_exempt
 @api_view(['PUT'])
-def user_update(request, pk):
+@permission_classes([IsAuthenticated])
+def user_update(request, user_id):
     """
     Update a specific user.
     """
     try:
-        user = User.objects.get(pk=pk)
+        user = User.objects.get(pk=user_id)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -57,12 +61,13 @@ def user_update(request, pk):
 
 @csrf_exempt
 @api_view(['DELETE'])
-def user_delete(request, pk):
+@permission_classes([IsAuthenticated])
+def user_delete(request, user_id):
     """
     Delete a specific user.
     """
     try:
-        user = User.objects.get(pk=pk)
+        user = User.objects.get(pk=user_id)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -79,20 +84,37 @@ def login(request):
     """
     if request.method == 'POST':
         # Get username and password from request
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        # Find user in database by username and password
-        user = User.objects.get(username=username)
+        request_data = RequestUserData(request.POST)
+        # Find user in database by username
+        try:
+            user = User.objects.get(username=request_data.username)
+        except User.DoesNotExist:
+            response = JsonResponse({
+                'error': 'Invalid username:',
+                'username provided:': request_data.username
+            })
+            response.status_code = 401
+            return response
+
+        try:
+            user = User.objects.get(username=request_data.password)
+        except User.DoesNotExist:
+            response = JsonResponse({'error': 'Invalid password'})
+            response.status_code = 401
+            return response
+
+        # Serialize user data
         serializer = UserSerializer(user)
-        user_password = make_password(password, salt=serializer.data['password'].split('$', 2)[1]) == serializer.data[
-            'password']
         # Verify password
+        user_password = make_password(request_data.password, salt=serializer.data['password'].split('$', 2)[1]) == \
+                        serializer.data['password']
         if serializer and serializer.data and user_password:
             # Create session for the user and add user ID to session
             request.session.set_expiry(0)
             request.session['user_id'] = user.id
-            # Create response with user data
-            response = JsonResponse(serializer.data)
+            # Create response with user data and token
+            token = str(RefreshToken.for_user(user).access_token)
+            response = JsonResponse({'user': serializer.data, 'token': token})
             response.status_code = 200
         else:
             response = JsonResponse({'error': 'Invalid username or password'})

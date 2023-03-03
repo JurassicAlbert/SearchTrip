@@ -23,6 +23,7 @@ def favorite_detail(request, favorite_id):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def favorite_list(request):
     """
     Get list of user's favorite locations.
@@ -37,6 +38,7 @@ def favorite_list(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def favorite_toggle(request):
     """
     Expects the following POST parameters:

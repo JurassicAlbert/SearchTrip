@@ -1,10 +1,12 @@
 from ..models.address import Address
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from ..serializers.address_serializer import AddressSerializer
+from rest_framework.decorators import api_view, permission_classes
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_address(request):
     """
     Expects the following POST parameters:
@@ -27,9 +29,19 @@ def create_address(request):
 
 
 @api_view(['GET'])
-def get_address(request, address_id):
+def address_list(request):
     """
-    Get the address with the given ID.
+    Get list of addresses from database and create response with data.
+    """
+    addresses = Address.objects.all()
+    serializer = AddressSerializer(addresses, many=True)
+    return Response({'addresses': serializer.data})
+
+
+@api_view(['GET'])
+def address_detail(request, address_id):
+    """
+    Find address with given identifier and create response with data.
     """
     try:
         address = Address.objects.get(id=address_id)
@@ -40,6 +52,7 @@ def get_address(request, address_id):
 
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def update_address(request, address_id):
     """
     Update the address with the given ID.
@@ -68,6 +81,7 @@ def update_address(request, address_id):
 
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def delete_address(request, address_id):
     """
     Delete the address with the given ID.
