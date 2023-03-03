@@ -1,9 +1,11 @@
+import json
+
 from ..models.user import User
 from rest_framework import status
 from django.http import JsonResponse
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from rest_framework.permissions import IsAuthenticated
 from ..requests.RequestUserData import RequestUserData
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -84,39 +86,27 @@ def login(request):
     """
     if request.method == 'POST':
         # Get username and password from request
-        # request_data = RequestUserData(request.POST)
         request_username = request.data.get('username')
-        request_password = request.POST.get('password')
+        request_password = request.data.get('password')
         try:
             user = User.objects.get(username=request_username)
         except User.DoesNotExist:
             response = JsonResponse({
-                'error': 'Invalid username:',
-                'username provided:': request_username
+                'error': 'Invalid username or password:',
+                'username provided:': request_username,
+                'password provided:': request_password
             })
             response.status_code = 401
             return response
 
-        try:
-            user = User.objects.get(username=request_password)
-        except User.DoesNotExist:
-            response = JsonResponse({
-                'error': 'Invalid password',
-                'provided password: ': request_password
-            })
-            response.status_code = 401
-            return response
-
-        # Serialize user data
-        serializer = UserSerializer(user)
         # Verify password
-        user_password = make_password(request_password, salt=serializer.data['password'].split('$', 2)[1]) == \
-                        serializer.data['password']
-        if serializer and serializer.data and user_password:
+        user_password = check_password(request_password, user.password)
+        if user_password:
             # Create session for the user and add user ID to session
             request.session.set_expiry(0)
             request.session['user_id'] = user.id
-            # Create response with user data and token
+            # Serialize user data and create response with user data and token
+            serializer = UserSerializer(user)
             token = str(RefreshToken.for_user(user).access_token)
             response = JsonResponse({'user': serializer.data, 'token': token})
             response.status_code = 200
