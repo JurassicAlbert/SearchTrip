@@ -110,7 +110,7 @@ def login(request):
         # Serialize user data
         serializer = UserSerializer(user)
         # Verify password
-        user_password = make_password(request_data.password, salt=serializer.data['password'].split('$', 2)[1]) == \
+        user_password = make_password(request_password, salt=serializer.data['password'].split('$', 2)[1]) == \
                         serializer.data['password']
         if serializer and serializer.data and user_password:
             # Create session for the user and add user ID to session
