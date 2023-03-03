@@ -84,22 +84,26 @@ def login(request):
     """
     if request.method == 'POST':
         # Get username and password from request
-        request_data = RequestUserData(request.POST)
-        # Find user in database by username
+        # request_data = RequestUserData(request.POST)
+        request_username = request.data.get('username')
+        request_password = request.POST.get('password')
         try:
-            user = User.objects.get(username=request_data.username)
+            user = User.objects.get(username=request_username)
         except User.DoesNotExist:
             response = JsonResponse({
                 'error': 'Invalid username:',
-                'username provided:': request_data.username
+                'username provided:': request_username
             })
             response.status_code = 401
             return response
 
         try:
-            user = User.objects.get(username=request_data.password)
+            user = User.objects.get(username=request_password)
         except User.DoesNotExist:
-            response = JsonResponse({'error': 'Invalid password'})
+            response = JsonResponse({
+                'error': 'Invalid password',
+                'provided password: ': request_password
+            })
             response.status_code = 401
             return response
 
