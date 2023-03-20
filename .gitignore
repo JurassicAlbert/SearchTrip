@@ -10,3 +10,4 @@ search_trip/__pycache__/*
 search_trip/__pycache__
 
 .env
+db.sqlite3
