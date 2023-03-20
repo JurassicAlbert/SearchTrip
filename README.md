@@ -46,6 +46,8 @@ git clone https://github.com/yourusername/your-django-project.git
 - [x] TASK6 - set urls
 - [ ] TASK7 - additional validations for serializers
 - [ ] TASK8 - update views to class-based
-- [ ] TASK9 - refactor code
-- [ ] TASK10 - create and connect with web application (techn.: vue.js)
-- [ ] TASK11 - connect with mobile application
+- [ ] TASK9 - refactor serializers as in [docs](https://www.django-rest-framework.org/api-guide/serializers/)
+- [ ] TASK10 - refactor views as in [docs](https://www.django-rest-framework.org/api-guide/views/)
+- [ ] TASK11 - refactor code
+- [ ] TASK12 - create and connect with web application (techn.: vue.js)
+- [ ] TASK13 - connect with mobile application
