@@ -3,7 +3,6 @@ from rest_framework import serializers
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 
 
-
 class AddressSerializer(serializers.ModelSerializer):
     """
     Serializer for Address model.
