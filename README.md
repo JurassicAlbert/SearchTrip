@@ -2,7 +2,8 @@
 
 # Django Project
 
-This is a Django project that serves as REST API
+Django project that serves as REST API<br>
+Created as part of a bachelor's thesis in the field of cloud computing
 
 ## Prerequisites
 
